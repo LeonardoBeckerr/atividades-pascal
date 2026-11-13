@@ -1,5 +1,5 @@
 
-                                     program conversoralgarismosromanos;
+program conversoralgarismosromanos;
 
 function Romano(valor: integer): string;
 var
