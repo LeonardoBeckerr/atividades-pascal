@@ -44,6 +44,8 @@ type
     function FaixaMaisLivre: integer;
     function MontarRelatorio: string;
     procedure AdicionarNaGrade(valor: real);
+    procedure TrocarLinhas(linhaA, linhaB: integer);
+    procedure OrdenarGrade;
     procedure AtualizarOcupacao;
     procedure LimparCampos;
   public
@@ -86,6 +88,21 @@ begin
     total := total * 0.85;
 
   CalcularValor := total;
+end;
+
+function IndiceDaFaixa(nomeFaixa: string): integer;
+var
+  i: integer;
+begin
+  Result := -1;
+  for i := 0 to 4 do
+  begin
+    if Grade_Radio[i].Nome = nomeFaixa then
+    begin
+      Result := i;
+      Exit;
+    end;
+  end;
 end;
 
 function TForm1.TempoOcupado(faixa: integer): integer;
@@ -232,7 +249,7 @@ var
   i, idxLivre, livreSeg: integer;
   txt: string;
 begin
-  txt := '=== RELATÓRIO DO DIA ===' + sLineBreak + sLineBreak;
+  txt := 'RELATÓRIO DO DIA ' + sLineBreak + sLineBreak;
   txt := txt + 'Faturamento Total: R$ ' + FormatFloat('0.00', FaturamentoTotal) + sLineBreak + sLineBreak;
   txt := txt + 'Faturamento por Faixa:' + sLineBreak;
 
@@ -264,6 +281,32 @@ begin
   grade.Cells[2, linha] := IntToStr(SegundosDaDuracao(cbDuracao.ItemIndex));
   grade.Cells[3, linha] := IntToStr(spInsercoes.Value);
   grade.Cells[4, linha] := FormatFloat('0.00', valor);
+end;
+
+procedure TForm1.TrocarLinhas(linhaA, linhaB: integer);
+var
+  col: integer;
+  temp: string;
+begin
+  for col := 0 to grade.ColCount - 1 do
+  begin
+    temp := grade.Cells[col, linhaA];
+    grade.Cells[col, linhaA] := grade.Cells[col, linhaB];
+    grade.Cells[col, linhaB] := temp;
+  end;
+end;
+
+procedure TForm1.OrdenarGrade;
+var
+  i: integer;
+begin
+  for i := grade.RowCount - 1 downto 2 do
+  begin
+    if IndiceDaFaixa(grade.Cells[1, i]) < IndiceDaFaixa(grade.Cells[1, i - 1]) then
+      TrocarLinhas(i, i - 1)
+    else
+      Break;
+  end;
 end;
 
 procedure TForm1.AtualizarOcupacao;
@@ -346,8 +389,6 @@ begin
   grade.Cells[2, 0] := 'Duração (s)';
   grade.Cells[3, 0] := 'Inserções';
   grade.Cells[4, 0] := 'Valor';
-  grade.ColWidths[0] := 150;
-  grade.ColWidths[1] := 160;
 
   AtualizarOcupacao;
 end;
@@ -399,6 +440,7 @@ begin
   valor := CalcularValor(faixa, duracao, spInsercoes.Value);
 
   AdicionarNaGrade(valor);
+  OrdenarGrade;
   AtualizarOcupacao;
   LimparCampos;
 end;

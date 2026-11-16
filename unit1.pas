@@ -249,7 +249,7 @@ var
   i, idxLivre, livreSeg: integer;
   txt: string;
 begin
-  txt := '=== RELATÓRIO DO DIA ===' + sLineBreak + sLineBreak;
+  txt := 'RELATÓRIO DO DIA ' + sLineBreak + sLineBreak;
   txt := txt + 'Faturamento Total: R$ ' + FormatFloat('0.00', FaturamentoTotal) + sLineBreak + sLineBreak;
   txt := txt + 'Faturamento por Faixa:' + sLineBreak;
 

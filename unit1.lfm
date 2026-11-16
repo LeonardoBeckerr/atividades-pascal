@@ -4,8 +4,8 @@ object Form1: TForm1
   Top = 248
   Width = 635
   Caption = 'Form1'
-  ClientHeight = 483
-  ClientWidth = 635
+  ClientHeight = 0
+  ClientWidth = 0
   Color = clNone
   LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
