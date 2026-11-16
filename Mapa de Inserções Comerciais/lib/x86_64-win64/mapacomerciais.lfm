@@ -1,91 +1,215 @@
 object Form1: TForm1
   Left = 621
-  Height = 483
-  Top = 248
-  Width = 635
-  Caption = 'Form1'
-  ClientHeight = 0
-  ClientWidth = 0
+  Height = 560
+  Top = 254
+  Width = 800
+  Caption = 'Rádio FM — Controle de Comerciais'
+  ClientHeight = 560
+  ClientWidth = 800
   Color = clNone
+  Position = poScreenCenter
   LCLVersion = '4.8.0.0'
   OnCreate = FormCreate
-  object edtNome: TEdit
-    Left = 200
-    Height = 23
-    Top = 16
-    Width = 240
+  object pnlTopo: TPanel
+    Left = 0
+    Height = 68
+    Top = 0
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 68
+    ClientWidth = 800
+    Color = 6240798
+    ParentBackground = False
+    ParentColor = False
     TabOrder = 0
-    Text = 'Nome do Anunciante'
-    OnChange = edtNomeChange
+    object lblTitulo: TLabel
+      Left = 16
+      Height = 25
+      Top = 12
+      Width = 358
+      Caption = 'Rádio FM — Agendamento de Comerciais'
+      Color = clWhite
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Segoe UI Semibold'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblSubtitulo: TLabel
+      Left = 16
+      Height = 17
+      Top = 38
+      Width = 390
+      Caption = 'Controle de intervalos comerciais, valores e ocupação da grade'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clSilver
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
   end
-  object cbDuracao: TComboBox
-    Left = 64
-    Height = 23
-    Top = 72
-    Width = 208
-    ItemHeight = 15
-    Style = csDropDownList
+  object pnlCadastro: TPanel
+    Left = 0
+    Height = 145
+    Top = 68
+    Width = 800
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 145
+    ClientWidth = 800
+    Color = clWhite
+    ParentBackground = False
+    ParentColor = False
     TabOrder = 1
-    OnChange = cbDuracaoChange
+    object gbNovo: TGroupBox
+      Left = 0
+      Height = 145
+      Top = 0
+      Width = 800
+      Align = alClient
+      Caption = 'Novo Agendamento'
+      ClientHeight = 125
+      ClientWidth = 796
+      Color = clWhite
+      ParentBackground = False
+      ParentColor = False
+      TabOrder = 0
+      OnClick = gbNovoClick
+      object edtNome: TEdit
+        Left = 16
+        Height = 23
+        Top = 16
+        Width = 340
+        TabOrder = 0
+        TextHint = 'Nome do Anunciante'
+        OnChange = edtNomeChange
+      end
+      object cbFaixa: TComboBox
+        Left = 176
+        Height = 23
+        Top = 72
+        Width = 360
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 1
+        OnChange = cbFaixaChange
+      end
+      object cbDuracao: TComboBox
+        Left = 16
+        Height = 23
+        Top = 72
+        Width = 130
+        ItemHeight = 15
+        Style = csDropDownList
+        TabOrder = 2
+        OnChange = cbDuracaoChange
+      end
+      object spInsercoes: TSpinEdit
+        Left = 384
+        Height = 23
+        Top = 16
+        Width = 100
+        MinValue = 1
+        TabOrder = 3
+        Value = 1
+        OnChange = spInsercoesChange
+      end
+      object btnAgendar: TButton
+        Left = 568
+        Height = 30
+        Top = 40
+        Width = 180
+        Caption = 'Agendar'
+        TabOrder = 4
+        OnClick = btnAgendarClick
+      end
+    end
   end
-  object cbFaixa: TComboBox
-    Left = 384
-    Height = 23
-    Top = 72
-    Width = 176
-    ItemHeight = 15
-    Style = csDropDownList
+  object pnlRodape: TPanel
+    Left = 0
+    Height = 72
+    Top = 488
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 72
+    ClientWidth = 800
+    Color = clNone
+    ParentBackground = False
+    ParentColor = False
     TabOrder = 2
-    OnChange = cbFaixaChange
+    object btnRelatorio: TButton
+      Left = 610
+      Height = 36
+      Top = 18
+      Width = 170
+      Anchors = [akTop, akRight]
+      Caption = 'Relatório do Dia'
+      TabOrder = 0
+      OnClick = btnRelatorioClick
+    end
+    object pbOcupado: TProgressBar
+      Left = 16
+      Height = 22
+      Top = 32
+      Width = 430
+      Smooth = True
+      TabOrder = 1
+      OnContextPopup = pbOcupadoContextPopup
+    end
+    object lblOcupado: TLabel
+      Left = 16
+      Height = 17
+      Top = 12
+      Width = 71
+      Caption = 'lblOcupado'
+      Color = clNone
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -13
+      Font.Name = 'Segoe UI'
+      Font.Pitch = fpVariable
+      Font.Quality = fqDraft
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = lblOcupadoClick
+    end
   end
-  object spInsercoes: TSpinEdit
-    Left = 246
-    Height = 23
-    Top = 112
-    Width = 138
-    MinValue = 1
+  object pnlCentro: TPanel
+    Left = 0
+    Height = 275
+    Top = 213
+    Width = 800
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 275
+    ClientWidth = 800
+    ParentBackground = False
     TabOrder = 3
-    Value = 1
-    OnChange = spInsercoesChange
-  end
-  object grade: TStringGrid
-    Left = 104
-    Height = 160
-    Top = 168
-    Width = 448
-    TabOrder = 4
-  end
-  object pbOcupado: TProgressBar
-    Left = 224
-    Height = 32
-    Top = 336
-    Width = 160
-    TabOrder = 5
-  end
-  object btnRelatorio: TButton
-    Left = 240
-    Height = 32
-    Top = 416
-    Width = 136
-    Caption = 'Relatório do Dia'
-    TabOrder = 6
-    OnClick = btnRelatorioClick
-  end
-  object btnAgendar: TButton
-    Left = 408
-    Height = 25
-    Top = 110
-    Width = 75
-    Caption = 'Agendar'
-    TabOrder = 7
-    OnClick = btnAgendarClick
-  end
-  object lblOcupado: TLabel
-    Left = 264
-    Height = 15
-    Top = 384
-    Width = 62
-    Caption = 'lblOcupado'
-    OnClick = lblOcupadoClick
+    object grade: TStringGrid
+      Left = 0
+      Height = 275
+      Top = 0
+      Width = 800
+      Align = alClient
+      AutoFillColumns = True
+      FixedCols = 0
+      TabOrder = 0
+      ColWidths = (
+        160
+        159
+        159
+        159
+        159
+      )
+    end
   end
 end

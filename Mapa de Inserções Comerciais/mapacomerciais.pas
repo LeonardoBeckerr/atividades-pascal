@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
-  Spin, Grids, ComCtrls, Buttons;
+  Spin, Grids, ComCtrls, Buttons, Types;
 
 type
   TFaixa = record
@@ -18,22 +18,32 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
-    btnRelatorio: TButton;
     btnAgendar: TButton;
+    btnRelatorio: TButton;
     cbDuracao: TComboBox;
     cbFaixa: TComboBox;
     edtNome: TEdit;
-    lblOcupado: TLabel;
-    pbOcupado: TProgressBar;
-    spInsercoes: TSpinEdit;
+    gbNovo: TGroupBox;
     grade: TStringGrid;
+    lblOcupado: TLabel;
+    lblTitulo: TLabel;
+    lblSubtitulo: TLabel;
+    pbOcupado: TProgressBar;
+    pnlTopo: TPanel;
+    pnlCadastro: TPanel;
+    pnlRodape: TPanel;
+    pnlCentro: TPanel;
+    spInsercoes: TSpinEdit;
     procedure btnAgendarClick(Sender: TObject);
     procedure btnRelatorioClick(Sender: TObject);
     procedure cbDuracaoChange(Sender: TObject);
     procedure cbFaixaChange(Sender: TObject);
     procedure edtNomeChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure gbNovoClick(Sender: TObject);
     procedure lblOcupadoClick(Sender: TObject);
+    procedure pbOcupadoContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
     procedure spInsercoesChange(Sender: TObject);
   private
     function TempoOcupado(faixa: integer): integer;
@@ -395,7 +405,18 @@ begin
   AtualizarOcupacao;
 end;
 
+procedure TForm1.gbNovoClick(Sender: TObject);
+begin
+
+end;
+
 procedure TForm1.lblOcupadoClick(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.pbOcupadoContextPopup(Sender: TObject; MousePos: TPoint;
+  var Handled: Boolean);
 begin
 
 end;
