@@ -1,0 +1,278 @@
+object Form1: TForm1
+  Left = 615
+  Height = 600
+  Top = 234
+  Width = 900
+  Caption = 'Desafio — Integração Lazarus + JvInterpreter + FireBird'
+  ClientHeight = 600
+  ClientWidth = 900
+  Color = 16052718
+  Constraints.MinHeight = 500
+  Constraints.MinWidth = 760
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  object pnlTopo: TPanel
+    Left = 0
+    Height = 64
+    Top = 0
+    Width = 900
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'Integração Lazarus + JvInterpreter + Firebird'
+    ClientHeight = 64
+    ClientWidth = 900
+    Color = 6240798
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    object lblTitulo: TLabel
+      Left = 16
+      Height = 23
+      Top = 10
+      Width = 412
+      Caption = 'Interpretador Pascal em Tempo Real (JvInterpreter)'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -17
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblSubtitulo: TLabel
+      Left = 16
+      Height = 15
+      Top = 36
+      Width = 346
+      Caption = 'Comunicação bidirecional entre scripts Pascal, interface e Firebird'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = 15128003
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object pnlDados: TPanel
+    Left = 0
+    Height = 135
+    Top = 64
+    Width = 900
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 135
+    ClientWidth = 900
+    ParentBackground = False
+    TabOrder = 1
+    object gbDados: TGroupBox
+      Left = 10
+      Height = 115
+      Top = 10
+      Width = 880
+      Align = alClient
+      BorderSpacing.Around = 10
+      Caption = ' Dados Simulados do Sistema (Banco de Dados) '
+      ClientHeight = 95
+      ClientWidth = 876
+      ParentBackground = False
+      TabOrder = 0
+      object lblCliente: TLabel
+        Left = 14
+        Height = 15
+        Top = 6
+        Width = 33
+        Caption = 'Nome'
+      end
+      object edtCliente: TEdit
+        Left = 14
+        Height = 23
+        Top = 24
+        Width = 240
+        TabOrder = 0
+        TextHint = 'Informe um Nome'
+      end
+      object btnCarregarTxt: TButton
+        Left = 428
+        Height = 27
+        Top = 22
+        Width = 132
+        Anchors = [akTop, akRight]
+        Caption = 'Carregar .pas'
+        TabOrder = 1
+        OnClick = btnCarregarTxtClick
+      end
+      object btnSalvarTxt: TButton
+        Left = 568
+        Height = 27
+        Top = 22
+        Width = 128
+        Anchors = [akTop, akRight]
+        Caption = 'Salvar .pas'
+        TabOrder = 2
+        OnClick = btnSalvarTxtClick
+      end
+      object btnExecutar: TButton
+        Left = 704
+        Height = 29
+        Top = 21
+        Width = 156
+        Anchors = [akTop, akRight]
+        Caption = '▶ Executar Script'
+        TabOrder = 3
+        OnClick = btnExecutarClick
+      end
+    end
+  end
+  object pnlCentro: TPanel
+    Left = 10
+    Height = 370
+    Top = 199
+    Width = 880
+    Align = alClient
+    BorderSpacing.Left = 10
+    BorderSpacing.Right = 10
+    BorderSpacing.Bottom = 8
+    BevelOuter = bvNone
+    ClientHeight = 370
+    ClientWidth = 880
+    ParentBackground = False
+    TabOrder = 2
+    object pnlCodigo: TPanel
+      Left = 0
+      Height = 370
+      Top = 0
+      Width = 490
+      Align = alLeft
+      BevelOuter = bvNone
+      ClientHeight = 370
+      ClientWidth = 490
+      ParentBackground = False
+      TabOrder = 0
+      object lblScript: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 490
+        Align = alTop
+        BorderSpacing.Bottom = 4
+        Caption = 'Código Pascal (editável em tempo real):'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -12
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object memCodigo: TMemo
+        Left = 0
+        Height = 351
+        Top = 19
+        Width = 490
+        Align = alClient
+        Color = 2826779
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Consolas'
+        ParentFont = False
+        ScrollBars = ssAutoBoth
+        TabOrder = 0
+        WantTabs = True
+      end
+    end
+    object splDivisor: TSplitter
+      Left = 490
+      Height = 370
+      Top = 0
+      Width = 6
+      MinSize = 180
+    end
+    object pnlSaida: TPanel
+      Left = 496
+      Height = 370
+      Top = 0
+      Width = 384
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 370
+      ClientWidth = 384
+      ParentBackground = False
+      TabOrder = 2
+      object lblSaida: TLabel
+        Left = 0
+        Height = 15
+        Top = 0
+        Width = 384
+        Align = alTop
+        BorderSpacing.Bottom = 4
+        Caption = 'Log de Operações:'
+        Font.CharSet = ANSI_CHARSET
+        Font.Height = -12
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object memSaida: TMemo
+        Left = 0
+        Height = 351
+        Top = 19
+        Width = 384
+        Align = alClient
+        Color = clWhite
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'Consolas'
+        ParentFont = False
+        ReadOnly = True
+        ScrollBars = ssAutoVertical
+        TabOrder = 0
+      end
+    end
+  end
+  object sbStatus: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 577
+    Width = 900
+    Panels = <>
+    SimpleText = 'Pronto — edite o código à esquerda e clique em Executar Script (sem recompilar o .exe)'
+  end
+  object JvInterpreterProgram1: TJvInterpreterProgram
+    OnGetValue = JvInterpreterProgram1GetValue
+    Left = 536
+    Top = 16
+  end
+  object ibConexao: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Password = 'masterkey'
+    Transaction = sqlTransacao
+    UserName = 'SYSDBA'
+    CharSet = 'UTF8'
+    HostName = 'localhost'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 648
+    Top = 16
+  end
+  object sqlTransacao: TSQLTransaction
+    Active = False
+    Database = ibConexao
+    Left = 744
+    Top = 16
+  end
+  object sqlQuery: TSQLQuery
+    FieldDefs = <>
+    Database = ibConexao
+    Transaction = sqlTransacao
+    Params = <>
+    Macros = <>
+    Left = 832
+    Top = 16
+  end
+end

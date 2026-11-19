@@ -1,0 +1,355 @@
+object Form1: TForm1
+  Left = 655
+  Height = 640
+  Top = 182
+  Width = 940
+  Caption = 'Rádio FM — Mapa de Inserções Comerciais V2 (JvInterpreter)'
+  ClientHeight = 640
+  ClientWidth = 940
+  Color = 16052718
+  Constraints.MinHeight = 540
+  Constraints.MinWidth = 860
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  object pnlTopo: TPanel
+    Left = 0
+    Height = 68
+    Top = 0
+    Width = 940
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 68
+    ClientWidth = 940
+    Color = 6240798
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    object lblTitulo: TLabel
+      Left = 16
+      Height = 25
+      Top = 10
+      Width = 408
+      Caption = 'Rádio FM — Mapa de Inserções Comerciais V2'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblSubtitulo: TLabel
+      Left = 16
+      Height = 15
+      Top = 39
+      Width = 433
+      Caption = 'Regras dinâmicas, exportação customizável e comprovante HTML via JvInterpreter'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = 15128003
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object pgcPrincipal: TPageControl
+    Left = 0
+    Height = 549
+    Top = 68
+    Width = 940
+    ActivePage = tsMapa
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 1
+    object tsMapa: TTabSheet
+      Caption = 'Mapa de Inserções'
+      ClientHeight = 521
+      ClientWidth = 932
+      object pnlCadastro: TPanel
+        Left = 0
+        Height = 140
+        Top = 0
+        Width = 932
+        Align = alTop
+        BevelOuter = bvNone
+        ClientHeight = 140
+        ClientWidth = 932
+        ParentBackground = False
+        TabOrder = 0
+        object gbNovo: TGroupBox
+          Left = 10
+          Height = 120
+          Top = 10
+          Width = 912
+          Align = alClient
+          BorderSpacing.Around = 10
+          Caption = ' Novo Agendamento '
+          ClientHeight = 100
+          ClientWidth = 908
+          Color = clWhite
+          ParentBackground = False
+          ParentColor = False
+          TabOrder = 0
+          object lblNome: TLabel
+            Left = 16
+            Height = 15
+            Top = 8
+            Width = 117
+            Caption = 'Nome do Anunciante:'
+          end
+          object edtNome: TEdit
+            Left = 16
+            Height = 23
+            Top = 26
+            Width = 360
+            TabOrder = 0
+            TextHint = 'Ex: Padaria Central'
+          end
+          object lblFaixa: TLabel
+            Left = 396
+            Height = 15
+            Top = 8
+            Width = 72
+            Caption = 'Faixa Horária:'
+          end
+          object cbFaixa: TComboBox
+            Left = 396
+            Height = 23
+            Top = 26
+            Width = 496
+            Anchors = [akTop, akLeft, akRight]
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 1
+            OnChange = cbFaixaChange
+          end
+          object lblDuracao: TLabel
+            Left = 16
+            Height = 15
+            Top = 54
+            Width = 91
+            Caption = 'Duração do Spot:'
+          end
+          object cbDuracao: TComboBox
+            Left = 16
+            Height = 23
+            Top = 72
+            Width = 140
+            ItemHeight = 15
+            Style = csDropDownList
+            TabOrder = 2
+          end
+          object lblInsercoes: TLabel
+            Left = 176
+            Height = 15
+            Top = 54
+            Width = 52
+            Caption = 'Inserções:'
+          end
+          object spInsercoes: TSpinEdit
+            Left = 176
+            Height = 23
+            Top = 72
+            Width = 100
+            MinValue = 1
+            TabOrder = 3
+            Value = 1
+          end
+          object btnAgendar: TButton
+            Left = 712
+            Height = 30
+            Top = 66
+            Width = 180
+            Anchors = [akTop, akRight]
+            Caption = '+ Agendar Comercial'
+            TabOrder = 4
+            OnClick = btnAgendarClick
+          end
+        end
+      end
+      object pnlRodape: TPanel
+        Left = 0
+        Height = 70
+        Top = 451
+        Width = 932
+        Align = alBottom
+        BevelOuter = bvNone
+        ClientHeight = 70
+        ClientWidth = 932
+        ParentBackground = False
+        TabOrder = 1
+        object lblOcupado: TLabel
+          Left = 14
+          Height = 15
+          Top = 10
+          Width = 111
+          Caption = 'Selecione uma faixa'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object pbOcupado: TProgressBar
+          Left = 14
+          Height = 22
+          Top = 32
+          Width = 380
+          Smooth = True
+          TabOrder = 0
+        end
+        object btnExportar: TButton
+          Left = 468
+          Height = 36
+          Top = 17
+          Width = 140
+          Anchors = [akTop, akRight]
+          Caption = 'Exportar TXT/CSV'
+          TabOrder = 1
+          OnClick = btnExportarClick
+        end
+        object btnHtml: TButton
+          Left = 616
+          Height = 36
+          Top = 17
+          Width = 150
+          Anchors = [akTop, akRight]
+          Caption = 'Comprovante HTML'
+          TabOrder = 2
+          OnClick = btnHtmlClick
+        end
+        object btnRelatorio: TButton
+          Left = 774
+          Height = 36
+          Top = 17
+          Width = 140
+          Anchors = [akTop, akRight]
+          Caption = 'Relatório do Dia'
+          TabOrder = 3
+          OnClick = btnRelatorioClick
+        end
+      end
+      object pnlCentro: TPanel
+        Left = 10
+        Height = 307
+        Top = 140
+        Width = 912
+        Align = alClient
+        BorderSpacing.Left = 10
+        BorderSpacing.Right = 10
+        BorderSpacing.Bottom = 4
+        BevelOuter = bvNone
+        ClientHeight = 307
+        ClientWidth = 912
+        ParentBackground = False
+        TabOrder = 2
+        object grade: TStringGrid
+          Left = 0
+          Height = 307
+          Top = 0
+          Width = 912
+          Align = alClient
+          AutoFillColumns = True
+          FixedCols = 0
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect, goSmoothScroll]
+          TabOrder = 0
+          ColWidths = (
+            182
+            182
+            182
+            181
+            181
+          )
+        end
+      end
+    end
+    object tsScripts: TTabSheet
+      Caption = 'Scripts (Modo Suporte / JvInterpreter)'
+      ClientHeight = 521
+      ClientWidth = 932
+      object pnlScriptTopo: TPanel
+        Left = 0
+        Height = 56
+        Top = 0
+        Width = 932
+        Align = alTop
+        BevelOuter = bvNone
+        ClientHeight = 56
+        ClientWidth = 932
+        ParentBackground = False
+        TabOrder = 0
+        object lblEscolhaScript: TLabel
+          Left = 14
+          Height = 15
+          Top = 18
+          Width = 62
+          Caption = 'Script ativo:'
+        end
+        object cbScript: TComboBox
+          Left = 88
+          Height = 23
+          Top = 14
+          Width = 390
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 0
+          OnChange = cbScriptChange
+        end
+        object btnSalvarScript: TButton
+          Left = 492
+          Height = 29
+          Top = 12
+          Width = 140
+          Caption = 'Salvar Alterações'
+          TabOrder = 1
+          OnClick = btnSalvarScriptClick
+        end
+        object btnRestaurarScript: TButton
+          Left = 640
+          Height = 29
+          Top = 12
+          Width = 145
+          Caption = 'Restaurar Padrão'
+          TabOrder = 2
+          OnClick = btnRestaurarScriptClick
+        end
+      end
+      object memScript: TMemo
+        Left = 10
+        Height = 455
+        Top = 56
+        Width = 912
+        Align = alClient
+        BorderSpacing.Left = 10
+        BorderSpacing.Right = 10
+        BorderSpacing.Bottom = 10
+        Color = 2826779
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Consolas'
+        ParentFont = False
+        ScrollBars = ssAutoBoth
+        TabOrder = 1
+        WantTabs = True
+      end
+    end
+  end
+  object sbStatus: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 617
+    Width = 940
+    Panels = <>
+    SimpleText = 'Pronto — V2 com JvInterpreter ativo (scripts na pasta scripts\)'
+  end
+  object JvInterpreterProgram1: TJvInterpreterProgram
+    OnGetValue = JvInterpreterProgram1GetValue
+    Left = 440
+    Top = 18
+  end
+end

@@ -1,0 +1,17 @@
+var
+  desconto, total: double;
+begin
+  if ValorBruto > 100 then
+    desconto := ValorBruto * 0.50
+  else
+    desconto := 0;
+
+  total := ValorBruto - desconto;
+
+  Result := 'Cliente: ' + NomeCliente + #13#10 +
+            'Valor Bruto: R$ ' + FormatFloat('0.00', ValorBruto) 
++ #13#10 +
+            'Desconto: R$ ' + FormatFloat('0.00', desconto) + 
+#13#10 +
+            'Total Final: R$ ' + FormatFloat('0.00', total);
+end;

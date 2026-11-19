@@ -1,0 +1,39 @@
+var
+  i, qtd: integer;
+  html, linhas: string;
+begin
+  qtd := QtdLinhas;
+  linhas := '';
+  for i := 1 to qtd do
+  begin
+    linhas := linhas +
+      '<tr>' +
+      '<td>' + Celula(0, i) + '</td>' +
+      '<td>' + Celula(1, i) + '</td>' +
+      '<td class="num">' + Celula(2, i) + 's</td>' +
+      '<td class="num">' + Celula(3, i) + '</td>' +
+      '<td class="num">R$ ' + Celula(4, i) + '</td>' +
+      '</tr>';
+  end;
+
+  html := '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">' +
+    '<title>Comprovante de Inserções — Rádio FM</title><style>' +
+    'body{font-family:Segoe UI,Arial,sans-serif;margin:32px;background:#f4f6f9;color:#1e293b}' +
+    '.card{max-width:900px;margin:auto;background:#fff;padding:24px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}' +
+    'h1{margin:0 0 4px;color:#1e3a5f;font-size:22px}.sub{color:#64748b;margin-bottom:20px;font-size:13px}' +
+    'table{width:100%;border-collapse:collapse;margin-bottom:20px}th{background:#1e3a5f;color:#fff;text-align:left;padding:10px}' +
+    'td{padding:9px 10px;border-bottom:1px solid #e2e8f0}.num{text-align:right}' +
+    '.resumo{background:#f8fafc;padding:14px;border-left:4px solid #1e3a5f;line-height:1.7}' +
+    '</style></head><body><div class="card">' +
+    '<h1>Comprovante Geral de Inserções Comerciais</h1>' +
+    '<div class="sub">Emitido em ' + FormatDateTime('dd/mm/yyyy hh:nn:ss', Now) + ' via JvInterpreter</div>' +
+    '<table><thead><tr><th>Anunciante</th><th>Faixa Horária</th><th class="num">Duração</th><th class="num">Inserções</th><th class="num">Valor</th></tr></thead>' +
+    '<tbody>' + linhas + '</tbody></table>' +
+    '<div class="resumo">' +
+    '<strong>Faturamento Total:</strong> R$ ' + FormatFloat('0.00', TotalFaturamento) + '<br>' +
+    '<strong>Maior Investidor:</strong> ' + CampeaoInvestimento + '<br>' +
+    '<strong>Faixa com Mais Tempo Livre:</strong> ' + NomeFaixaMaisLivre +
+    '</div></div></body></html>';
+
+  Result := html;
+end;
