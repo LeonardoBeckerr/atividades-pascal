@@ -26,6 +26,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="SQLDBLaz"/>
+      </Item>
+      <Item>
         <PackageName Value="JvPascalInterpreterR"/>
       </Item>
       <Item>
@@ -78,6 +81,9 @@
       </Item>
       <Item>
         <Name Value="EFOpenError"/>
+      </Item>
+      <Item>
+        <Name Value="EJvInterpreterError"/>
       </Item>
     </Exceptions>
   </Debugging>

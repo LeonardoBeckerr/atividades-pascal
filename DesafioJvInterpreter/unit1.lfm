@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 615
+  Left = 742
   Height = 600
-  Top = 234
+  Top = 281
   Width = 900
   Caption = 'Desafio — Integração Lazarus + JvInterpreter + FireBird'
   ClientHeight = 600
@@ -22,7 +22,6 @@ object Form1: TForm1
     Width = 900
     Align = alTop
     BevelOuter = bvNone
-    Caption = 'Integração Lazarus + JvInterpreter + Firebird'
     ClientHeight = 64
     ClientWidth = 900
     Color = 6240798
@@ -33,8 +32,8 @@ object Form1: TForm1
       Left = 16
       Height = 23
       Top = 10
-      Width = 412
-      Caption = 'Interpretador Pascal em Tempo Real (JvInterpreter)'
+      Width = 449
+      Caption = 'Desafio — Integração Lazarus + JvInterpreter + Firebird'
       Font.CharSet = ANSI_CHARSET
       Font.Color = clWhite
       Font.Height = -17
@@ -75,7 +74,7 @@ object Form1: TForm1
       Width = 880
       Align = alClient
       BorderSpacing.Around = 10
-      Caption = ' Dados Simulados do Sistema (Banco de Dados) '
+      Caption = ' Dados da Operação e Banco Firebird '
       ClientHeight = 95
       ClientWidth = 876
       ParentBackground = False
@@ -84,16 +83,27 @@ object Form1: TForm1
         Left = 14
         Height = 15
         Top = 6
-        Width = 33
-        Caption = 'Nome'
+        Width = 36
+        Caption = 'Nome:'
       end
       object edtCliente: TEdit
         Left = 14
         Height = 23
         Top = 24
-        Width = 240
+        Width = 230
         TabOrder = 0
-        TextHint = 'Informe um Nome'
+        TextHint = 'Informe um nome'
+        OnChange = edtClienteChange
+      end
+      object chkHabilitar: TCheckBox
+        Left = 260
+        Height = 19
+        Top = 26
+        Width = 115
+        Caption = 'Habilitar operação'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
       end
       object btnCarregarTxt: TButton
         Left = 428
@@ -102,7 +112,7 @@ object Form1: TForm1
         Width = 132
         Anchors = [akTop, akRight]
         Caption = 'Carregar .pas'
-        TabOrder = 1
+        TabOrder = 2
         OnClick = btnCarregarTxtClick
       end
       object btnSalvarTxt: TButton
@@ -112,7 +122,7 @@ object Form1: TForm1
         Width = 128
         Anchors = [akTop, akRight]
         Caption = 'Salvar .pas'
-        TabOrder = 2
+        TabOrder = 3
         OnClick = btnSalvarTxtClick
       end
       object btnExecutar: TButton
@@ -122,14 +132,39 @@ object Form1: TForm1
         Width = 156
         Anchors = [akTop, akRight]
         Caption = '▶ Executar Script'
-        TabOrder = 3
+        TabOrder = 4
         OnClick = btnExecutarClick
+      end
+      object lblBanco: TLabel
+        Left = 14
+        Height = 15
+        Top = 54
+        Width = 170
+        Caption = 'Caminho da Base Firebird (.fdb):'
+      end
+      object edtBanco: TEdit
+        Left = 16
+        Height = 23
+        Top = 72
+        Width = 682
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 5
+      end
+      object btnTestarBanco: TButton
+        Left = 704
+        Height = 27
+        Top = 68
+        Width = 156
+        Anchors = [akTop, akRight]
+        Caption = 'Conectar / Criar Base'
+        TabOrder = 6
+        OnClick = btnTestarBancoClick
       end
     end
   end
   object pnlCentro: TPanel
     Left = 10
-    Height = 370
+    Height = 312
     Top = 199
     Width = 880
     Align = alClient
@@ -137,18 +172,18 @@ object Form1: TForm1
     BorderSpacing.Right = 10
     BorderSpacing.Bottom = 8
     BevelOuter = bvNone
-    ClientHeight = 370
+    ClientHeight = 312
     ClientWidth = 880
     ParentBackground = False
     TabOrder = 2
     object pnlCodigo: TPanel
       Left = 0
-      Height = 370
+      Height = 312
       Top = 0
       Width = 490
       Align = alLeft
       BevelOuter = bvNone
-      ClientHeight = 370
+      ClientHeight = 312
       ClientWidth = 490
       ParentBackground = False
       TabOrder = 0
@@ -168,7 +203,7 @@ object Form1: TForm1
       end
       object memCodigo: TMemo
         Left = 0
-        Height = 351
+        Height = 293
         Top = 19
         Width = 490
         Align = alClient
@@ -181,23 +216,24 @@ object Form1: TForm1
         ScrollBars = ssAutoBoth
         TabOrder = 0
         WantTabs = True
+        WordWrap = False
       end
     end
     object splDivisor: TSplitter
       Left = 490
-      Height = 370
+      Height = 312
       Top = 0
       Width = 6
       MinSize = 180
     end
     object pnlSaida: TPanel
       Left = 496
-      Height = 370
+      Height = 312
       Top = 0
       Width = 384
       Align = alClient
       BevelOuter = bvNone
-      ClientHeight = 370
+      ClientHeight = 312
       ClientWidth = 384
       ParentBackground = False
       TabOrder = 2
@@ -217,7 +253,7 @@ object Form1: TForm1
       end
       object memSaida: TMemo
         Left = 0
-        Height = 351
+        Height = 293
         Top = 19
         Width = 384
         Align = alClient
@@ -233,13 +269,46 @@ object Form1: TForm1
       end
     end
   end
+  object pnlProgresso: TPanel
+    Left = 0
+    Height = 58
+    Top = 519
+    Width = 900
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 58
+    ClientWidth = 900
+    ParentBackground = False
+    TabOrder = 3
+    object lblStatus: TLabel
+      Left = 10
+      Height = 15
+      Top = 6
+      Width = 108
+      Caption = 'Status: Aguardando'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object pbProgresso: TProgressBar
+      Left = 10
+      Height = 22
+      Top = 26
+      Width = 880
+      Anchors = [akTop, akLeft, akRight]
+      Smooth = True
+      TabOrder = 0
+    end
+  end
   object sbStatus: TStatusBar
     Left = 0
     Height = 23
     Top = 577
     Width = 900
     Panels = <>
-    SimpleText = 'Pronto — edite o código à esquerda e clique em Executar Script (sem recompilar o .exe)'
+    SimpleText = 'Pronto — digite um nome e clique em Executar Script'
   end
   object JvInterpreterProgram1: TJvInterpreterProgram
     OnGetValue = JvInterpreterProgram1GetValue
@@ -264,6 +333,17 @@ object Form1: TForm1
     Active = False
     Database = ibConexao
     Left = 744
+    Top = 16
+  end
+  object dlgAbrirPas: TOpenDialog
+    Filter = 'Scripts Pascal (*.pas;*.txt)|*.pas;*.txt|Todos (*.*)|*.*'
+    Left = 416
+    Top = 16
+  end
+  object dlgSalvarPas: TSaveDialog
+    DefaultExt = '.pas'
+    Filter = 'Scripts Pascal (*.pas;*.txt)|*.pas;*.txt|Todos (*.*)|*.*'
+    Left = 472
     Top = 16
   end
   object sqlQuery: TSQLQuery
