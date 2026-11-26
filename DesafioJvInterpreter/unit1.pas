@@ -147,7 +147,8 @@ end;
 procedure TForm1.GarantirBancoETabela;
 var
   caminho, pasta: string;
-  tabelaExiste: boolean;
+  tabelaExiste, generatorExiste, triggerExiste: boolean;
+  maxCod: integer;
 begin
   caminho := Trim(edtBanco.Text);
   if caminho = '' then
@@ -175,6 +176,7 @@ begin
     ibConexao.Connected := True;
   end;
 
+  // 1. Garante a tabela NOMES
   sqlQuery.Close;
   sqlQuery.SQL.Text :=
     'SELECT COUNT(*) AS QTD FROM RDB$RELATIONS ' +
@@ -190,6 +192,57 @@ begin
       '  CODIGO INTEGER NOT NULL PRIMARY KEY,' +
       '  NOME VARCHAR(255) NOT NULL' +
       ')';
+    sqlQuery.ExecSQL;
+    sqlTransacao.Commit;
+  end;
+
+  // 2. Garante o generator GEN_NOMES_CODIGO (e sincroniza se já houver dados)
+  sqlQuery.Close;
+  sqlQuery.SQL.Text :=
+    'SELECT COUNT(*) AS QTD FROM RDB$GENERATORS ' +
+    'WHERE TRIM(RDB$GENERATOR_NAME) = ''GEN_NOMES_CODIGO''';
+  sqlQuery.Open;
+  generatorExiste := sqlQuery.FieldByName('QTD').AsInteger > 0;
+  sqlQuery.Close;
+
+  if not generatorExiste then
+  begin
+    sqlQuery.SQL.Text := 'CREATE GENERATOR GEN_NOMES_CODIGO';
+    sqlQuery.ExecSQL;
+    sqlTransacao.Commit;
+
+    sqlQuery.SQL.Text := 'SELECT COALESCE(MAX(CODIGO), 0) AS MAXCOD FROM NOMES';
+    sqlQuery.Open;
+    maxCod := sqlQuery.FieldByName('MAXCOD').AsInteger;
+    sqlQuery.Close;
+
+    if maxCod > 0 then
+    begin
+      sqlQuery.SQL.Text := 'SET GENERATOR GEN_NOMES_CODIGO TO ' + IntToStr(maxCod);
+      sqlQuery.ExecSQL;
+      sqlTransacao.Commit;
+    end;
+  end;
+
+  // 3. Garante a trigger NOMES_BI
+  sqlQuery.Close;
+  sqlQuery.SQL.Text :=
+    'SELECT COUNT(*) AS QTD FROM RDB$TRIGGERS ' +
+    'WHERE TRIM(RDB$TRIGGER_NAME) = ''NOMES_BI''';
+  sqlQuery.Open;
+  triggerExiste := sqlQuery.FieldByName('QTD').AsInteger > 0;
+  sqlQuery.Close;
+
+  if not triggerExiste then
+  begin
+    sqlQuery.SQL.Text :=
+      'CREATE TRIGGER NOMES_BI FOR NOMES ' +
+      'ACTIVE BEFORE INSERT POSITION 0 ' +
+      'AS ' +
+      'BEGIN ' +
+      '  IF (NEW.CODIGO IS NULL) THEN ' +
+      '    NEW.CODIGO = GEN_ID(GEN_NOMES_CODIGO, 1); ' +
+      'END';
     sqlQuery.ExecSQL;
     sqlTransacao.Commit;
   end;
@@ -234,15 +287,12 @@ begin
   GarantirBancoETabela;
 
   sqlQuery.Close;
-  sqlQuery.SQL.Text := 'SELECT COALESCE(MAX(CODIGO), 0) + 1 AS PROX FROM NOMES';
-  sqlQuery.Open;
-  proxCodigo := sqlQuery.FieldByName('PROX').AsInteger;
-  sqlQuery.Close;
-
-  sqlQuery.SQL.Text := 'INSERT INTO NOMES (CODIGO, NOME) VALUES (:P_COD, :P_NOME)';
-  sqlQuery.ParamByName('P_COD').AsInteger := proxCodigo;
+  sqlQuery.SQL.Text :=
+    'INSERT INTO NOMES (NOME) VALUES (:P_NOME) RETURNING CODIGO';
   sqlQuery.ParamByName('P_NOME').AsString := nomeLimpo;
-  sqlQuery.ExecSQL;
+  sqlQuery.Open;
+  proxCodigo := sqlQuery.FieldByName('CODIGO').AsInteger;
+  sqlQuery.Close;
   sqlTransacao.CommitRetaining;
 
   memSaida.Lines.Add('Firebird: gravado CODIGO=' + IntToStr(proxCodigo) +

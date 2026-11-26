@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="C:\lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1556502373"/>
-  <Params Value="-MObjFPC -Scghi -O1 -gw3 -gl -l -vewnhibq &quot;-FiC:\Users\Leandro Becker\Documents\atividades pascal\lib\x86_64-win64&quot; &quot;-FuC:\Users\Leandro Becker\Documents\atividades pascal\&quot; &quot;-FUC:\Users\Leandro Becker\Documents\atividades pascal\lib\x86_64-win64\&quot; &quot;-FEC:\Users\Leandro Becker\Documents\atividades pascal\&quot; &quot;-oC:\Users\Leandro Becker\Documents\atividades pascal\conversoralgarismosromanos.exe&quot; conversoralgarismosromanos.lpr"/>
-</CONFIG>

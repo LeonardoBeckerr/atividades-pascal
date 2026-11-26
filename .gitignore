@@ -1,0 +1,33 @@
+# Lazarus / Free Pascal build & IDE artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.or
+*.obj
+*.ppu
+*.a
+*.compiled
+*.dbg
+*.lps
+*.bak
+*.~*
+*~
+lib/
+backup/
+
+# Firebird local database files (recreated automatically by the app)
+*.fdb
+*.FDB
+*.fbk
+*.FBK
+
+# Generated runtime output files
+Mapa de Inserções Comerciais V2/mapa_exportado.txt
+Mapa de Inserções Comerciais V2/relatorio_dia.html
+
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
