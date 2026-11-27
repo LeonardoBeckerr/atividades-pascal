@@ -1,0 +1,706 @@
+object Form1: TForm1
+  Left = 530
+  Height = 700
+  Top = 97
+  Width = 1160
+  Caption = 'Cadastro de Clientes (CNPJ) — Emissora de Rádio'
+  ClientHeight = 700
+  ClientWidth = 1160
+  Color = 16052718
+  Constraints.MinHeight = 620
+  Constraints.MinWidth = 1000
+  Font.CharSet = ANSI_CHARSET
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Position = poScreenCenter
+  LCLVersion = '4.8.0.0'
+  OnCreate = FormCreate
+  object pnlTopo: TPanel
+    Left = 0
+    Height = 58
+    Top = 0
+    Width = 1160
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 58
+    ClientWidth = 1160
+    Color = 6240798
+    ParentBackground = False
+    ParentColor = False
+    TabOrder = 0
+    object lblTitulo: TLabel
+      Left = 16
+      Height = 23
+      Top = 8
+      Width = 511
+      Caption = 'Cadastro de Clientes — Emissora de Rádio (BrasilAPI + Firebird)'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -17
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object lblSubtitulo: TLabel
+      Left = 16
+      Height = 15
+      Top = 34
+      Width = 429
+      Caption = 'Consulta automática de CNPJ via BrasilAPI e gestão comercial / OPEC em Firebird'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = 15128003
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      ParentColor = False
+      ParentFont = False
+    end
+  end
+  object pnlDados: TPanel
+    Left = 0
+    Height = 126
+    Top = 58
+    Width = 1160
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 126
+    ClientWidth = 1160
+    ParentBackground = False
+    TabOrder = 1
+    object gbDados: TGroupBox
+      Left = 8
+      Height = 110
+      Top = 8
+      Width = 1144
+      Align = alClient
+      BorderSpacing.Around = 8
+      Caption = ' Consulta de CNPJ e Conexão Firebird '
+      ClientHeight = 90
+      ClientWidth = 1140
+      ParentBackground = False
+      TabOrder = 0
+      object lblCnpj: TLabel
+        Left = 12
+        Height = 15
+        Top = 4
+        Width = 106
+        Caption = 'CNPJ para Consulta:'
+      end
+      object edtCnpj: TEdit
+        Left = 12
+        Height = 23
+        Top = 20
+        Width = 210
+        MaxLength = 18
+        TabOrder = 0
+        TextHint = '00.000.000/0000-00'
+        OnKeyDown = edtCnpjKeyDown
+      end
+      object btnConsultar: TButton
+        Left = 230
+        Height = 27
+        Top = 18
+        Width = 148
+        Caption = 'Consultar CNPJ'
+        TabOrder = 1
+        OnClick = btnConsultarClick
+      end
+      object btnNovo: TButton
+        Left = 660
+        Height = 27
+        Top = 18
+        Width = 136
+        Anchors = [akTop, akRight]
+        Caption = 'Novo / Limpar'
+        TabOrder = 2
+        OnClick = btnNovoClick
+      end
+      object btnSalvar: TButton
+        Left = 804
+        Height = 27
+        Top = 18
+        Width = 160
+        Anchors = [akTop, akRight]
+        Caption = 'Salvar Cliente'
+        TabOrder = 3
+        OnClick = btnSalvarClick
+      end
+      object btnExcluir: TButton
+        Left = 972
+        Height = 27
+        Top = 18
+        Width = 154
+        Anchors = [akTop, akRight]
+        Caption = 'Excluir Cliente'
+        TabOrder = 4
+        OnClick = btnExcluirClick
+      end
+      object lblBanco: TLabel
+        Left = 12
+        Height = 15
+        Top = 46
+        Width = 170
+        Caption = 'Caminho da Base Firebird (.fdb):'
+      end
+      object edtBanco: TEdit
+        Left = 12
+        Height = 23
+        Top = 62
+        Width = 950
+        Anchors = [akTop, akLeft, akRight]
+        TabOrder = 5
+      end
+      object btnTestarBanco: TButton
+        Left = 972
+        Height = 27
+        Top = 60
+        Width = 154
+        Anchors = [akTop, akRight]
+        Caption = 'Conectar / Criar Base'
+        TabOrder = 6
+        OnClick = btnTestarBancoClick
+      end
+    end
+  end
+  object pnlCentro: TPanel
+    Left = 8
+    Height = 441
+    Top = 184
+    Width = 1144
+    Align = alClient
+    BorderSpacing.Left = 8
+    BorderSpacing.Right = 8
+    BorderSpacing.Bottom = 4
+    BevelOuter = bvNone
+    ClientHeight = 441
+    ClientWidth = 1144
+    ParentBackground = False
+    TabOrder = 2
+    object pnlSuperior: TPanel
+      Left = 0
+      Height = 292
+      Top = 0
+      Width = 1144
+      Align = alTop
+      BevelOuter = bvNone
+      ClientHeight = 292
+      ClientWidth = 1144
+      Constraints.MinHeight = 260
+      ParentBackground = False
+      TabOrder = 0
+      object pnlCampos: TPanel
+        Left = 0
+        Height = 292
+        Top = 0
+        Width = 768
+        Align = alClient
+        BevelOuter = bvNone
+        ClientHeight = 292
+        ClientWidth = 768
+        Constraints.MinWidth = 710
+        ParentBackground = False
+        TabOrder = 0
+        object gbFichaCliente: TGroupBox
+          Left = 0
+          Height = 292
+          Top = 0
+          Width = 768
+          Align = alClient
+          Caption = ' Dados da Empresa (Retorno BrasilAPI / Edição) '
+          ClientHeight = 272
+          ClientWidth = 764
+          ParentBackground = False
+          TabOrder = 0
+          object lblCnpjFicha: TLabel
+            Left = 10
+            Height = 15
+            Top = 2
+            Width = 30
+            Caption = 'CNPJ:'
+          end
+          object edtCnpjFicha: TEdit
+            Left = 10
+            Height = 23
+            Top = 17
+            Width = 155
+            MaxLength = 18
+            TabOrder = 0
+          end
+          object lblSituacao: TLabel
+            Left = 175
+            Height = 15
+            Top = 2
+            Width = 100
+            Caption = 'Situação Cadastral:'
+          end
+          object edtSituacao: TEdit
+            Left = 175
+            Height = 23
+            Top = 17
+            Width = 145
+            TabOrder = 1
+          end
+          object lblDataAbertura: TLabel
+            Left = 330
+            Height = 15
+            Top = 2
+            Width = 92
+            Caption = 'Data de Abertura:'
+          end
+          object edtDataAbertura: TEdit
+            Left = 330
+            Height = 23
+            Top = 17
+            Width = 115
+            TabOrder = 2
+          end
+          object lblCnae: TLabel
+            Left = 455
+            Height = 15
+            Top = 2
+            Width = 34
+            Caption = 'CNAE:'
+            OnClick = lblCnaeClick
+          end
+          object edtCnae: TEdit
+            Left = 455
+            Height = 23
+            Top = 17
+            Width = 115
+            TabOrder = 3
+          end
+          object lblCep: TLabel
+            Left = 580
+            Height = 15
+            Top = 2
+            Width = 24
+            Caption = 'CEP:'
+          end
+          object edtCep: TEdit
+            Left = 580
+            Height = 23
+            Top = 17
+            Width = 174
+            Anchors = [akTop, akLeft, akRight]
+            MaxLength = 10
+            TabOrder = 4
+          end
+          object lblRazaoSocial: TLabel
+            Left = 10
+            Height = 15
+            Top = 43
+            Width = 68
+            Caption = 'Razão Social:'
+          end
+          object edtRazaoSocial: TEdit
+            Left = 10
+            Height = 23
+            Top = 58
+            Width = 375
+            TabOrder = 5
+          end
+          object lblNomeFantasia: TLabel
+            Left = 395
+            Height = 15
+            Top = 43
+            Width = 82
+            Caption = 'Nome Fantasia:'
+          end
+          object edtNomeFantasia: TEdit
+            Left = 395
+            Height = 23
+            Top = 58
+            Width = 359
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 6
+          end
+          object lblAtividade: TLabel
+            Left = 10
+            Height = 15
+            Top = 84
+            Width = 185
+            Caption = 'Descrição da Atividade Econômica:'
+          end
+          object edtAtividade: TEdit
+            Left = 10
+            Height = 23
+            Top = 99
+            Width = 744
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 7
+          end
+          object lblEndereco: TLabel
+            Left = 10
+            Height = 15
+            Top = 125
+            Width = 125
+            Caption = 'Endereço (Logradouro):'
+          end
+          object edtEndereco: TEdit
+            Left = 10
+            Height = 23
+            Top = 140
+            Width = 360
+            TabOrder = 8
+          end
+          object lblNumero: TLabel
+            Left = 380
+            Height = 15
+            Top = 125
+            Width = 47
+            Caption = 'Número:'
+          end
+          object edtNumero: TEdit
+            Left = 380
+            Height = 23
+            Top = 140
+            Width = 85
+            TabOrder = 9
+          end
+          object lblBairro: TLabel
+            Left = 475
+            Height = 15
+            Top = 125
+            Width = 34
+            Caption = 'Bairro:'
+          end
+          object edtBairro: TEdit
+            Left = 475
+            Height = 23
+            Top = 140
+            Width = 279
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 10
+          end
+          object lblMunicipio: TLabel
+            Left = 10
+            Height = 15
+            Top = 166
+            Width = 57
+            Caption = 'Município:'
+          end
+          object edtMunicipio: TEdit
+            Left = 10
+            Height = 23
+            Top = 181
+            Width = 210
+            TabOrder = 11
+          end
+          object lblEstado: TLabel
+            Left = 230
+            Height = 15
+            Top = 166
+            Width = 63
+            Caption = 'Estado (UF):'
+          end
+          object edtEstado: TEdit
+            Left = 230
+            Height = 23
+            Top = 181
+            Width = 65
+            CharCase = ecUppercase
+            MaxLength = 2
+            TabOrder = 12
+          end
+          object lblTelefone: TLabel
+            Left = 305
+            Height = 15
+            Top = 166
+            Width = 48
+            Caption = 'Telefone:'
+          end
+          object edtTelefone: TEdit
+            Left = 305
+            Height = 23
+            Top = 181
+            Width = 205
+            TabOrder = 13
+          end
+          object lblEmail: TLabel
+            Left = 520
+            Height = 15
+            Top = 166
+            Width = 37
+            Caption = 'E-mail:'
+          end
+          object edtEmail: TEdit
+            Left = 520
+            Height = 23
+            Top = 181
+            Width = 234
+            Anchors = [akTop, akLeft, akRight]
+            TabOrder = 14
+          end
+          object lblObservacoes: TLabel
+            Left = 10
+            Height = 15
+            Top = 207
+            Width = 215
+            Caption = 'Observações (Equipe Comercial / OPEC):'
+          end
+          object memObservacoes: TMemo
+            Left = 10
+            Height = 44
+            Top = 222
+            Width = 744
+            Anchors = [akTop, akLeft, akRight, akBottom]
+            ScrollBars = ssAutoVertical
+            TabOrder = 15
+          end
+        end
+      end
+      object splDivisor: TSplitter
+        Left = 768
+        Height = 292
+        Top = 0
+        Width = 6
+        Align = alRight
+        MinSize = 220
+        ResizeAnchor = akRight
+      end
+      object pnlJson: TPanel
+        Left = 774
+        Height = 292
+        Top = 0
+        Width = 370
+        Align = alRight
+        BevelOuter = bvNone
+        ClientHeight = 292
+        ClientWidth = 370
+        Constraints.MinWidth = 220
+        ParentBackground = False
+        TabOrder = 2
+        object lblJson: TLabel
+          Left = 0
+          Height = 15
+          Top = 0
+          Width = 370
+          Align = alTop
+          BorderSpacing.Bottom = 4
+          Caption = 'JSON Retornado pela BrasilAPI:'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object memJson: TMemo
+          Left = 0
+          Height = 273
+          Top = 19
+          Width = 370
+          Align = alClient
+          Color = 2826779
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Consolas'
+          ParentFont = False
+          ReadOnly = True
+          ScrollBars = ssAutoBoth
+          TabOrder = 0
+          WordWrap = False
+        end
+      end
+    end
+    object splHorizontal: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 6
+      Top = 292
+      Width = 1144
+      Align = alTop
+      MinSize = 110
+      ResizeAnchor = akTop
+    end
+    object pnlClientes: TPanel
+      Left = 0
+      Height = 143
+      Top = 298
+      Width = 1144
+      Align = alClient
+      BevelOuter = bvNone
+      ClientHeight = 143
+      ClientWidth = 1144
+      ParentBackground = False
+      TabOrder = 2
+      object pnlPesquisa: TPanel
+        Left = 0
+        Height = 36
+        Top = 0
+        Width = 1144
+        Align = alTop
+        BevelOuter = bvNone
+        ClientHeight = 36
+        ClientWidth = 1144
+        ParentBackground = False
+        TabOrder = 0
+        object lblPesquisa: TLabel
+          Left = 2
+          Height = 15
+          Top = 10
+          Width = 278
+          Caption = 'Clientes Cadastrados — Pesquisar (Nome ou CNPJ):'
+          Font.CharSet = ANSI_CHARSET
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object edtPesquisa: TEdit
+          Left = 310
+          Height = 23
+          Top = 6
+          Width = 310
+          Anchors = [akTop, akLeft, akRight]
+          TabOrder = 0
+          TextHint = 'Digite razão social, fantasia ou CNPJ...'
+          OnKeyDown = edtPesquisaKeyDown
+        end
+        object btnPesquisar: TButton
+          Left = 628
+          Height = 27
+          Top = 4
+          Width = 105
+          Anchors = [akTop, akRight]
+          Caption = 'Pesquisar'
+          TabOrder = 1
+          OnClick = btnPesquisarClick
+        end
+        object btnListarTodos: TButton
+          Left = 740
+          Height = 27
+          Top = 4
+          Width = 115
+          Anchors = [akTop, akRight]
+          Caption = 'Mostrar Todos'
+          TabOrder = 2
+          OnClick = btnListarTodosClick
+        end
+        object btnEditarSelecionado: TButton
+          Left = 862
+          Height = 27
+          Top = 4
+          Width = 140
+          Anchors = [akTop, akRight]
+          Caption = 'Editar Selecionado'
+          TabOrder = 3
+          OnClick = btnEditarSelecionadoClick
+        end
+        object btnExcluirSelecionado: TButton
+          Left = 1009
+          Height = 27
+          Top = 4
+          Width = 135
+          Anchors = [akTop, akRight]
+          Caption = 'Excluir Selecionado'
+          TabOrder = 4
+          OnClick = btnExcluirSelecionadoClick
+        end
+      end
+      object dbgClientes: TDBGrid
+        Left = 0
+        Height = 107
+        Top = 36
+        Width = 1144
+        Align = alClient
+        Color = clWindow
+        Columns = <>
+        DataSource = dsClientes
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit]
+        ReadOnly = True
+        TabOrder = 1
+        TitleFont.CharSet = ANSI_CHARSET
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = [fsBold]
+        OnDblClick = dbgClientesDblClick
+      end
+    end
+  end
+  object pnlProgresso: TPanel
+    Left = 0
+    Height = 48
+    Top = 629
+    Width = 1160
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 48
+    ClientWidth = 1160
+    ParentBackground = False
+    TabOrder = 3
+    object lblStatus: TLabel
+      Left = 10
+      Height = 15
+      Top = 4
+      Width = 108
+      Caption = 'Status: Aguardando'
+      Font.CharSet = ANSI_CHARSET
+      Font.Height = -12
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object pbProgresso: TProgressBar
+      Left = 10
+      Height = 18
+      Top = 22
+      Width = 1140
+      Anchors = [akTop, akLeft, akRight]
+      Smooth = True
+      TabOrder = 0
+    end
+  end
+  object sbStatus: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 677
+    Width = 1160
+    Panels = <>
+    SimpleText = 'Pronto — informe um CNPJ e clique em Consultar CNPJ'
+  end
+  object ibConexao: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    KeepConnection = False
+    Password = 'masterkey'
+    Transaction = sqlTransacao
+    UserName = 'SYSDBA'
+    CharSet = 'UTF8'
+    HostName = 'localhost'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 720
+    Top = 12
+  end
+  object sqlTransacao: TSQLTransaction
+    Active = False
+    Database = ibConexao
+    Left = 808
+    Top = 12
+  end
+  object sqlQuery: TSQLQuery
+    FieldDefs = <>
+    Database = ibConexao
+    Transaction = sqlTransacao
+    Params = <>
+    Macros = <>
+    Left = 896
+    Top = 12
+  end
+  object sqlClientes: TSQLQuery
+    PacketRecords = -1
+    FieldDefs = <>
+    Database = ibConexao
+    Transaction = sqlTransacao
+    Params = <>
+    Macros = <>
+    Left = 976
+    Top = 12
+  end
+  object dsClientes: TDataSource
+    DataSet = sqlClientes
+    Left = 1064
+    Top = 12
+  end
+end
